@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">WhatsApp-Android</string>
+    <string name="app_name">WhatsApp</string>
+    <string name="welcome">Welcome Back!</string>
+    <string name="sign_in_to_continue">Login to continue</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="sign_in">Sign in</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="nickname">Nickname</string>
+    <string name="add_image">Add Image</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
