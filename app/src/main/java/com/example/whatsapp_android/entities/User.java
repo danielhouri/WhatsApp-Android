@@ -8,22 +8,39 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private String username;
-    private String nickname;
-    private String image;
-    private String lastMessage;
-    private String time;
+    private String username, nickname, image, lastMessage, time, server;
 
-    public User(String username, String nickname, String image, String lastMessage, String time) {
+    public User(String username, String nickname, String image, String lastMessage, String time, String server) {
         this.username = username;
         this.nickname = nickname;
         this.image = image;
         this.lastMessage = lastMessage;
         this.time = time;
+        this.server = server;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getServer() {
+        return server;
     }
 
     public void setUsername(String username) {
@@ -46,28 +63,8 @@ public class User {
         this.time = time;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public String getLastMessage() {
-        return lastMessage;
-    }
-
-    public String getTime() {
-        return time;
+    public void setServer(String server) {
+        this.server = server;
     }
 }
 
