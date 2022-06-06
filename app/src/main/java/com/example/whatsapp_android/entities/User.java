@@ -3,68 +3,62 @@ package com.example.whatsapp_android.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 @Entity
 public class User {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey()
+    private String username;
 
-    private String username, nickname, image, lastMessage, time, server;
+    private String name, password, image;
+    //private List<Contact> contacts;
 
-    public User(String username, String nickname, String image, String lastMessage, String time, String server) {
+    public User(String username, String name, String image, String password) {
         this.username = username;
-        this.nickname = nickname;
+        this.name = name;
         this.image = image;
-        this.lastMessage = lastMessage;
-        this.time = time;
-        this.server = server;
+        this.password = password;
+        //this.contacts = contacts;
     }
+
+    /*public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }*/
+
+    /*public List<Contact> getContacts() {
+        return contacts;
+    }*/
 
     public String getUsername() {
         return username;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getName() {
+        return name;
     }
 
     public String getImage() {
         return image;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public String getServer() {
-        return server;
+    public String getPassword() {
+        return password;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setImage(String image) {
         this.image = image;
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public void setServer(String server) {
-        this.server = server;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

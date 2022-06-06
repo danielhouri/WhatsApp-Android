@@ -2,6 +2,7 @@ package com.example.whatsapp_android.activities;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,7 +15,9 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.whatsapp_android.api.WhatsAppAPI;
 import com.example.whatsapp_android.databinding.ActivitySignUpBinding;
+import com.example.whatsapp_android.entities.User;
 import com.example.whatsapp_android.utilities.Constants;
 import com.example.whatsapp_android.utilities.PreferenceManager;
 
@@ -23,11 +26,16 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private ActivitySignUpBinding binding;
     private String encodedImage;
     private PreferenceManager preferenceManager;
+    private WhatsAppAPI whatsAppAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
+        whatsAppAPI = new WhatsAppAPI();
         setListeners();
     }
 
@@ -58,22 +67,43 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void signUp() {
         loading(true);
+
         //API - SIGNUP
+        User user = new User(binding.inputUsernameSignUp.getText().toString(),
+                binding.inputNicknameSignUp.getText().toString(),
+                encodedImage,
+                binding.inputPasswordSignUp.getText().toString());
+        Call<String> call = whatsAppAPI.signUp(user);
 
-        //Ok
-        loading(false);
-        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-        preferenceManager.putString(Constants.KEY_COLLECTION_USERS, "");  //KEY COLLECTION USER
-        preferenceManager.putString(Constants.KEY_USERNAME, binding.inputUsernameSignUp.toString());
-        preferenceManager.putString(Constants.KEY_NICKNAME, binding.inputNicknameSignUp.toString());
-        preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                // Ok
+                if(response.code() == 200) {
+                    preferenceManager.putString(Constants.KEY_TOKEN, response.body());
+                    loading(false);
+                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                    preferenceManager.putString(Constants.KEY_COLLECTION_USERS, "");  //KEY COLLECTION USER
+                    preferenceManager.putString(Constants.KEY_USERNAME, binding.inputUsernameSignUp.getText().toString());
+                    preferenceManager.putString(Constants.KEY_NICKNAME, binding.inputNicknameSignUp.getText().toString());
+                    preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+                //Error
+                else {
+                    loading(false);
+                    showToast("Can't register, try again!");
+                }
+            }
 
-        //False
-        //loading(false);
-        //showToast("Error");
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                loading(false);
+                showToast("Can't register, try again!");
+            }
+        });
     }
 
     private String encodeImage(Bitmap bitmap) {
@@ -108,28 +138,28 @@ public class SignUpActivity extends AppCompatActivity {
     );
 
     private Boolean isValidSignUp() {
-        /*if (encodedImage == null) {
-            showToast("Select profile image ");
+        if (binding.inputUsernameSignUp.getText().toString().trim().isEmpty()) {
+            showToast("Enter username");
             return false;
         }
-        else if (binding.inputUsernameSignUp.getText().toString().trim().isEmpty()) {
-            showToast("Enter username");
+        else if (encodedImage == null) {
+            showToast("Select profile image");
             return false;
         }
         else if (binding.inputNicknameSignUp.getText().toString().trim().isEmpty()) {
-            showToast("Enter username");
+            showToast("Enter your nickname");
             return false;
         }
         else if (binding.inputPasswordSignUp.getText().toString().trim().isEmpty() ||
                 binding.inputConfirmPasswordSignUp.getText().toString().trim().isEmpty() ||
                 !Pattern.matches("^(?=.*?\\d)(?=.*?[a-zA-Z])[a-zA-Z\\d]+$", binding.inputPasswordSignUp.getText().toString())) {
-            showToast("Enter a valid password (must contain letters and digits)");
+            showToast("Password must contain letters and digits");
             return false;
         }
         else if(!binding.inputPasswordSignUp.getText().toString().equals(binding.inputConfirmPasswordSignUp.getText().toString())) {
             showToast("The passwords do not match. Try again.");
             return false;
-        }*/
+        }
         return true;
     }
 
