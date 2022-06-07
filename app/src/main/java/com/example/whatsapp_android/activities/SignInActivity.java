@@ -78,8 +78,6 @@ public class SignInActivity extends AppCompatActivity {
                 showToast("Can't register, try again!");
             }
         });
-
-
     }
 
     void loading(Boolean isLoading) {

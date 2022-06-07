@@ -3,7 +3,6 @@ package com.example.whatsapp_android.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.List;
 
 @Entity
 public class User {
@@ -11,23 +10,13 @@ public class User {
     private String username;
 
     private String name, password, image;
-    //private List<Contact> contacts;
 
     public User(String username, String name, String image, String password) {
         this.username = username;
         this.name = name;
         this.image = image;
         this.password = password;
-        //this.contacts = contacts;
     }
-
-    /*public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
-    }*/
-
-    /*public List<Contact> getContacts() {
-        return contacts;
-    }*/
 
     public String getUsername() {
         return username;

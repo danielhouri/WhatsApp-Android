@@ -4,14 +4,25 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/backgorund_icon.xml" value="0.1295" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/background_chat_input.xml" value="0.1875" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/background_content_bottom.xml" value="0.1955" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/background_content_top.xml" value="0.1875" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/background_icon.xml" value="0.173" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/background_image.xml" value="0.1805" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/background_input.xml" value="0.1805" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/background_recieved_message.xml" value="0.1875" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/background_sent_message.xml" value="0.1875" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/drawable/ic_logout.xml" value="0.1955" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/activity_chat.xml" value="0.264" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/activity_contact.xml" value="0.1318428750522357" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/activity_main.xml" value="0.24864130434782608" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/activity_sign_up.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/activity_signin.xml" value="0.264" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/activity_users.xml" value="0.24864130434782608" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/item_container_contact.xml" value="0.2697734074390765" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/item_container_recived_message.xml" value="0.2689183411714408" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/item_container_user.xml" value="0.4" />
+        <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/layout/iten_container_sent_message.xml" value="0.2689183411714408" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsApp-Android/app/src/main/res/xml/network_security_config.xml" value="0.12426900584795321" />
         <entry key="..\:/Users/Daniel Houri/AndroidStudioProjects/WhatsAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.1" />
       </map>
