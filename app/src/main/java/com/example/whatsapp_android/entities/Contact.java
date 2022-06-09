@@ -1,27 +1,39 @@
 package com.example.whatsapp_android.entities;
 
 
-import androidx.room.PrimaryKey;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
+@Entity(primaryKeys = {"id", "userid"})
 public class Contact implements Serializable {
-    @PrimaryKey()
+    @NonNull
     private String id;
-    private String name, server, last, image;
-    private Date lastDate;
+    private String userid;
+    private String name, server, last;
 
-    public Contact(String id, String name, String server, String last, String image, Date lastDate) {
+    private String lastDate;
+
+    public Contact(@NonNull String id, String userid, String name, String server, String last, String lastDate) {
         this.id = id;
+        this.userid = userid;
         this.name = name;
         this.server = server;
         this.last = last;
-        this.image = image;
         this.lastDate = lastDate;
     }
 
-    public void setId(String id) {
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    @NonNull
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
@@ -37,14 +49,11 @@ public class Contact implements Serializable {
         this.last = last;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setLastDate(Date lastDate) {
+    public void setLastDate(String lastDate) {
         this.lastDate = lastDate;
     }
 
+    @NonNull
     public String getId() {
         return id;
     }
@@ -61,11 +70,7 @@ public class Contact implements Serializable {
         return last;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public Date getLastDate() {
+    public String getLastDate() {
         return lastDate;
     }
 }

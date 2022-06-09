@@ -55,12 +55,12 @@ public class ChatActivity extends AppCompatActivity {
 
     private void getMessages() {
         //Add new
-        Message newMessage = new Message("ron", "Hello, how are you?", true, new Date());
-        Message newMessage1 = new Message("ron", "Are you there?", false, new Date());
-        Message newMessage2 = new Message("ron", "Hello?", true, new Date());
-        Message newMessage3 = new Message("ron", "Hi", false, new Date());
-        Message newMessage4 = new Message("ron", "Miao", true, new Date());
-        Message newMessage5 = new Message("ron", "Hamin", false, new Date());
+        Message newMessage = new Message(0,"ron", "Hello, how are you?", true, new Date());
+        Message newMessage1 = new Message(1,"ron", "Are you there?", false, new Date());
+        Message newMessage2 = new Message(2,"ron", "Hello?", true, new Date());
+        Message newMessage3 = new Message(3,"ron", "Hi", false, new Date());
+        Message newMessage4 = new Message(4,"ron", "Miao", true, new Date());
+        Message newMessage5 = new Message(5,"ron", "Hamin", false, new Date());
 
         messages.add(newMessage);
         messages.add(newMessage1);
@@ -78,7 +78,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendMessage() {
-        Message newMessage = new Message(preferenceManager.getString(Constants.KEY_CONTACT),
+        Message newMessage = new Message(0,preferenceManager.getString(Constants.KEY_CONTACT),
                 binding.inputMessage.getText().toString(),
                 true,
                 new Date());

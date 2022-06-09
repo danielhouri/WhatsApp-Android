@@ -13,6 +13,7 @@ import com.example.whatsapp_android.databinding.ItemContainerContactBinding;
 import com.example.whatsapp_android.entities.Contact;
 import com.example.whatsapp_android.listeners.ContactListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ContactViewHolder>{
@@ -22,9 +23,14 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     private final ContactListener contactListener;
 
 
-    public ContactsAdapter(List<Contact> contacts, ContactListener contactListener) {
-        this.contacts = contacts;
+    public ContactsAdapter(ContactListener contactListener) {
         this.contactListener = contactListener;
+        contacts = new ArrayList<>();
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts.clear();
+        this.contacts.addAll(contacts);
     }
 
     @NonNull

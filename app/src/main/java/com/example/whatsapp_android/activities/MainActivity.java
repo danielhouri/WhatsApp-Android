@@ -2,35 +2,38 @@ package com.example.whatsapp_android.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Base64;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.whatsapp_android.R;
 import com.example.whatsapp_android.adapters.ContactsAdapter;
 import com.example.whatsapp_android.databinding.ActivityMainBinding;
 import com.example.whatsapp_android.entities.Contact;
 import com.example.whatsapp_android.listeners.ContactListener;
 import com.example.whatsapp_android.utilities.Constants;
 import com.example.whatsapp_android.utilities.PreferenceManager;
+import com.example.whatsapp_android.viewmodels.ContactsViewModel;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements ContactListener {
 
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
-    private List<Contact> contacts;
-    private ContactsAdapter contactsAdapter;
-
+    private ContactsViewModel contactsViewModel;
+    private int size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,69 +42,71 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
         loadUserDetails();
-        init();
-        setListeners();
-        getContacts();
-    }
 
-    private void init() {
-        contacts = new ArrayList<>();
-        contactsAdapter = new ContactsAdapter(contacts, this);
+
+        ContactsAdapter contactsAdapter = new ContactsAdapter(this);
         binding.conversationsRecyclerView.setAdapter(contactsAdapter);
-        //Get from db
-    }
 
-    private void getContacts() {
-        loading(true);
-        //Add
-        Date time = new Date();
+        contactsViewModel = new ContactsViewModel(preferenceManager);
+        contactsViewModel.get().observe(this, contacts -> {
+            loading(true);
 
-        Contact contact = new Contact("daniel", "daniel", "localserver", "many", null, time);
-        Contact contact1 = new Contact("daniel1", "daniel", "localserver", "many", null, time);
-        Contact contact2 = new Contact("daniel2", "daniel", "localserver", "many", null, time);
-        Contact contact3 = new Contact("daniel3", "daniel", "localserver", "many", null, time);
-        Contact contact4 = new Contact("daniel4", "daniel", "localserver", "many", null, time);
-        Contact contact5 = new Contact("daniel5", "daniel", "localserver", "many", null, time);
-        Contact contact6 = new Contact("daniel6", "daniel", "localserver", "many", null, time);
-        Contact contact7 = new Contact("daniel7", "daniel", "localserver", "many", null, time);
-        Contact contact8 = new Contact("daniel8", "daniel", "localserver", "many", null, time);
-        Contact contact9 = new Contact("daniel9", "daniel", "localserver", "many", null, time);
-        Contact contact10 = new Contact("daniel10", "daniel", "localserver", "many", null, time);
+            binding.conversationsRecyclerView.setVisibility(View.VISIBLE);
+            binding.progressBar.setVisibility(View.GONE);
 
-        contacts.add(contact);
-        contacts.add(contact1);
-        contacts.add(contact2);
-        contacts.add(contact3);
-        contacts.add(contact4);
-        contacts.add(contact5);
-        contacts.add(contact6);
-        contacts.add(contact7);
-        contacts.add(contact8);
-        contacts.add(contact9);
-        contacts.add(contact10);
-        //Change
+            contactsAdapter.setContacts(contacts);
+            contactsAdapter.notifyItemRangeChanged(0,contactsAdapter.getItemCount() + size);
+            size = contactsAdapter.getItemCount();
 
-        //Not Change
-
-        loading(false);
-        Collections.sort(contacts, (obj1, obj2) -> obj2.getLastDate().compareTo(obj1.getLastDate()));
-        //contactsAdapter.notifyDataSetChanged();
-        binding.conversationsRecyclerView.smoothScrollToPosition(0);
-        binding.conversationsRecyclerView.setVisibility(View.VISIBLE);
-        binding.progressBar.setVisibility(View.GONE);
-
-
+            loading(false);
+        });
+        setListeners();
     }
 
     private void setListeners() {
         binding.imageSignOut.setOnClickListener(v -> signOut());
+        binding.btnNewChat.setOnClickListener(v -> addNewUser());
     }
 
-    private void loadUserDetails() {
+    void addNewUser() {
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.add_user_dialog);
+        Window window = dialog.getWindow();
+        window.setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+        final EditText usernameET = dialog.findViewById(R.id.inputUsername);
+        final EditText nameET = dialog.findViewById(R.id.inputNickname);
+        final EditText serverET = dialog.findViewById(R.id.inputServer);
+
+        TextView btn = dialog.findViewById(R.id.btnAdd);
+        ImageView back = dialog.findViewById(R.id.imageBack);
+
+        back.setOnClickListener(v -> dialog.hide());
+
+        btn.setOnClickListener(v -> {
+            String username = usernameET.getText().toString();
+            String name = nameET.getText().toString();
+            String server = serverET.getText().toString();
+
+            //API
+            Contact contact = new Contact(username,null,name, server, null,null);
+            contactsViewModel.add(contact);
+            dialog.hide();
+        });
+
+        dialog.show();
+    }
+
+    private void loadUserDetails()  {
         binding.textName.setText(preferenceManager.getString(Constants.KEY_NICKNAME));
-        byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE), Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0 , bytes.length);
-        binding.imageProfile.setImageBitmap(bitmap);
+        String image = preferenceManager.getString(Constants.KEY_IMAGE);
+        if(image != null) {
+            byte[] bytes = Base64.decode(image, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0 , bytes.length);
+            binding.imageProfile.setImageBitmap(bitmap);
+        }
     }
 
     private void showToast(String message) {

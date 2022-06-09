@@ -1,9 +1,14 @@
 package com.example.whatsapp_android.entities;
 
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.whatsapp_android.utilities.DateConverter;
 
 import java.util.Date;
 
+@Entity
 public class Message {
 
     @PrimaryKey(autoGenerate = true)
@@ -11,15 +16,29 @@ public class Message {
     private String Contact;
     private String Content;
     private boolean send;
+
+    @TypeConverters(DateConverter.class)
     private Date created;
 
-    public Message(String contact, String content, boolean send, Date created) {
+    public Message() {
+
+    }
+
+    public Message(int id, String contact, String content, boolean send, Date created) {
+        this.id = id;
         Contact = contact;
         Content = content;
         this.send = send;
         this.created = created;
     }
 
+    public String getContact() {
+        return Contact;
+    }
+
+    public void setContact(String contact) {
+        Contact = contact;
+    }
 
     public void setId(int id) {
         this.id = id;

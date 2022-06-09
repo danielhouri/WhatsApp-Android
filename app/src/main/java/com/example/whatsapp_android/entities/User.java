@@ -7,47 +7,47 @@ import androidx.room.PrimaryKey;
 @Entity
 public class User {
     @PrimaryKey()
-    private String username;
+    private String Username;
 
-    private String name, password, image;
+    private String Name, Password, Image;
 
     public User(String username, String name, String image, String password) {
-        this.username = username;
-        this.name = name;
-        this.image = image;
-        this.password = password;
+        this.Username = username;
+        this.Name = name;
+        this.Image = image;
+        this.Password = password;
     }
 
     public String getUsername() {
-        return username;
+        return Username;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public String getImage() {
-        return image;
+        return Image;
     }
 
     public String getPassword() {
-        return password;
+        return Password;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.Username = username;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.Image = image;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.Password = password;
     }
 }
 
