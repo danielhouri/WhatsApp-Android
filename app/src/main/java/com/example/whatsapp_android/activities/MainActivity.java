@@ -90,7 +90,8 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
             String server = serverET.getText().toString();
 
             //API
-            Contact contact = new Contact(username,name, server);
+            Contact contact = new Contact(username,preferenceManager.
+                    getString(Constants.KEY_USERNAME),name, server);
             contactsViewModel.add(contact);
             dialog.hide();
         });

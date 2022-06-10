@@ -25,9 +25,9 @@ public class Contact implements Serializable {
     }
 
     @Ignore
-    public Contact(@NonNull String id, String name, String server) {
+    public Contact(@NonNull String id, @NonNull String userid, String name, String server) {
         this.id = id;
-        this.userid="";
+        this.userid=userid;
         this.server = server;
         this.name = name;
     }
