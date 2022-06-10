@@ -3,19 +3,19 @@ package com.example.whatsapp_android.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 
 import java.io.Serializable;
 
 @Entity(primaryKeys = {"id", "userid"})
 public class Contact implements Serializable {
     @NonNull
-    private String id;
-    private String userid;
+    private String id, userid;
     private String name, server, last;
 
     private String lastDate;
 
-    public Contact(@NonNull String id, String userid, String name, String server, String last, String lastDate) {
+    public Contact(@NonNull String id, @NonNull String userid, String name, String server, String last, String lastDate) {
         this.id = id;
         this.userid = userid;
         this.name = name;
@@ -24,7 +24,15 @@ public class Contact implements Serializable {
         this.lastDate = lastDate;
     }
 
-    public void setUserid(String userid) {
+    @Ignore
+    public Contact(@NonNull String id, String name, String server) {
+        this.id = id;
+        this.userid="";
+        this.server = server;
+        this.name = name;
+    }
+
+    public void setUserid(@NonNull String userid) {
         this.userid = userid;
     }
 

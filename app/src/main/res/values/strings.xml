@@ -17,4 +17,6 @@
     <string name="server">Server</string>
     <string name="new_contact">New Contact</string>
     <string name="add_new_contact">Add new contact</string>
+    <string name="change">Change</string>
+    <string name="settings">Settings</string>
 </resources>

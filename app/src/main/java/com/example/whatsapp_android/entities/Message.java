@@ -2,42 +2,54 @@ package com.example.whatsapp_android.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import com.example.whatsapp_android.utilities.DateConverter;
-
-import java.util.Date;
 
 @Entity
 public class Message {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String Contact;
-    private String Content;
+    private String content;
+
+    private String created;
+
     private boolean send;
+    private String userId, receiverId;
 
-    @TypeConverters(DateConverter.class)
-    private Date created;
-
-    public Message() {
-
+    public Message(int id, String content, String created, boolean send, String userId, String receiverId) {
+        this.id = id;
+        this.content = content;
+        this.created = created;
+        this.send = send;
+        this.userId = userId;
+        this.receiverId = receiverId;
     }
 
-    public Message(int id, String contact, String content, boolean send, Date created) {
-        this.id = id;
-        Contact = contact;
-        Content = content;
+    public void setSend(boolean send) {
         this.send = send;
+    }
+
+    public boolean isSend() {
+        return send;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public String getContact() {
-        return Contact;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setContact(String contact) {
-        Contact = contact;
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
     }
 
     public void setId(int id) {
@@ -45,15 +57,7 @@ public class Message {
     }
 
     public void setContent(String content) {
-        Content = content;
-    }
-
-    public void setSend(boolean send) {
-        this.send = send;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
+        this.content = content;
     }
 
     public int getId() {
@@ -61,14 +65,10 @@ public class Message {
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
-    public boolean isSend() {
-        return send;
-    }
-
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 }

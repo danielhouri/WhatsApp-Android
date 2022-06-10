@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
     private ContactsViewModel contactsViewModel;
-    private int size;
+    private int size = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
-        loadUserDetails();
 
+        loadUserDetails();
 
         ContactsAdapter contactsAdapter = new ContactsAdapter(this);
         binding.conversationsRecyclerView.setAdapter(contactsAdapter);
@@ -91,13 +90,14 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
             String server = serverET.getText().toString();
 
             //API
-            Contact contact = new Contact(username,null,name, server, null,null);
+            Contact contact = new Contact(username,name, server);
             contactsViewModel.add(contact);
             dialog.hide();
         });
 
         dialog.show();
     }
+
 
     private void loadUserDetails()  {
         binding.textName.setText(preferenceManager.getString(Constants.KEY_NICKNAME));
@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
 
     @Override
     public void onContactClicked(Contact contact) {
+        preferenceManager.putString(Constants.KEY_CONTACT, contact.getId());
         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
         intent.putExtra(Constants.KEY_CONTACT, contact);
         startActivity(intent);

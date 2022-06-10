@@ -25,11 +25,10 @@ public class ContactsRepository {
 
     public ContactsRepository(PreferenceManager preferenceManager) {
         this.preferenceManager = preferenceManager;
-        contactDao = Room.databaseBuilder(WhatsApp.context, LocalDatabase.class, "AppDB1")
+        contactDao = Room.databaseBuilder(WhatsApp.context, LocalDatabase.class, "AppDB60")
                     .allowMainThreadQueries().build().contactDao();
         contactListData = new ContactListData();
         this.contactAPI = new ContactAPI(contactDao, preferenceManager);
-
     }
 
     public LiveData<List<Contact>> getAll(){
@@ -51,13 +50,9 @@ public class ContactsRepository {
 
         @Override
         protected void onActive() {
+            this.postValue(contactDao.index(preferenceManager.getString(Constants.KEY_USERNAME)));
             super.onActive();
-            new Thread(() ->
-                    contactListData
-                            .postValue(contactDao.index(preferenceManager
-                                    .getString(Constants.KEY_USERNAME))))
-                    .start();
-            contactAPI.getAllContact(this);
+            new Thread(() -> contactAPI.getAllContact(this)).start();
         }
     }
 }

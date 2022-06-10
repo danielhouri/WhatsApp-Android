@@ -3,16 +3,24 @@ package com.example.whatsapp_android.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.whatsapp_android.R;
 import com.example.whatsapp_android.api.WhatsAppAPI;
 import com.example.whatsapp_android.databinding.ActivitySigninBinding;
 import com.example.whatsapp_android.entities.User;
 import com.example.whatsapp_android.utilities.Constants;
 import com.example.whatsapp_android.utilities.PreferenceManager;
+import com.example.whatsapp_android.utilities.WhatsApp;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -34,6 +42,9 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
         whatsAppAPI = new WhatsAppAPI();
+
+        preferenceManager.putString(Constants.KEY_SERVER, WhatsApp.context.getString(R.string.BaseUrl));
+
         setListeners();
     }
 
@@ -45,6 +56,29 @@ public class SignInActivity extends AppCompatActivity {
                 signIn();
             }
         });
+        binding.settingsImage.setOnClickListener(v -> settingsDialog());
+    }
+
+    void settingsDialog() {
+        final Dialog dialog = new Dialog(SignInActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.settings_dialog);
+        Window window = dialog.getWindow();
+        window.setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+        final EditText serverET = dialog.findViewById(R.id.inputServerChange);
+        TextView btn = dialog.findViewById(R.id.btnChangeServer);
+        ImageView back = dialog.findViewById(R.id.imageBackSetting);
+
+
+        back.setOnClickListener(v -> dialog.hide());
+        btn.setOnClickListener(v -> {
+            preferenceManager.putString(Constants.KEY_SERVER, serverET.getText().toString());
+            dialog.hide();
+        });
+
+        dialog.show();
     }
 
     private void signIn() {

@@ -2,20 +2,14 @@ package com.example.whatsapp_android.api;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.whatsapp_android.Dao.ContactDao;
-import com.example.whatsapp_android.R;
 import com.example.whatsapp_android.entities.Contact;
 import com.example.whatsapp_android.entities.Invitation;
 import com.example.whatsapp_android.utilities.Constants;
 import com.example.whatsapp_android.utilities.PreferenceManager;
-import com.example.whatsapp_android.utilities.WhatsApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +21,6 @@ public class ContactAPI {
     ContactDao contactDao;
     PreferenceManager preferenceManager;
 
-
     public ContactAPI(ContactDao contactDao, PreferenceManager preferenceManager) {
         this.contactDao = contactDao;
         this.preferenceManager = preferenceManager;
@@ -36,7 +29,7 @@ public class ContactAPI {
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(WhatsApp.context.getString(R.string.BaseUrl))
+                .baseUrl(preferenceManager.getString(Constants.KEY_SERVER))
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
@@ -58,10 +51,6 @@ public class ContactAPI {
                         }
                         contacts.setValue(result);
                     }
-                    else {
-                        contactDao.clear(preferenceManager.getString(Constants.KEY_USERNAME));
-                        contacts.setValue(contactDao.index(preferenceManager.getString(Constants.KEY_USERNAME)));
-                    }
                 }
             }
 
@@ -70,15 +59,14 @@ public class ContactAPI {
         });
     }
 
-    public void addNewContact(String token, MutableLiveData<List<Contact>> contacts, Contact contact) {
-        token = "Bearer " + token;
+    public void addNewContact(MutableLiveData<List<Contact>> contacts, Contact contact) {
+        String token = "Bearer " + preferenceManager.getString(Constants.KEY_TOKEN);
         Call<String> call = webServiceAPI.addNewContact(token, contact);
 
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if (response.code() == 201) {
-                    String res = response.body();
                     contact.setUserid(preferenceManager.getString(Constants.KEY_USERNAME));
                     contactDao.insert(contact);
                 }
@@ -103,14 +91,12 @@ public class ContactAPI {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if (response.code() == 201) {
-                    addNewContact(preferenceManager.getString(Constants.KEY_TOKEN), contacts, contact);
+                    addNewContact(contacts, contact);
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-
-            }
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {            }
         });
     }
 }

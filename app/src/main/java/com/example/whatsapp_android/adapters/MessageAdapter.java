@@ -11,21 +11,25 @@ import com.example.whatsapp_android.databinding.ItemContainerRecivedMessageBindi
 import com.example.whatsapp_android.databinding.ItenContainerSentMessageBinding;
 import com.example.whatsapp_android.entities.Message;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private final List<Message> messages;
     private final Bitmap receiverProfileImage;
-    private final String senderId;
 
     public static final int VIEW_TYPE_SENT = 1;
     public static final int VIEW_TYPE_RECEIVED = 2;
 
-    public MessageAdapter(List<Message> messages, Bitmap receiverProfileImage, String senderId) {
-        this.messages = messages;
+    public MessageAdapter(Bitmap receiverProfileImage) {
+        this.messages = new ArrayList<>();
         this.receiverProfileImage = receiverProfileImage;
-        this.senderId = senderId;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages.clear();
+        this.messages.addAll(messages);
     }
 
     @NonNull
@@ -80,7 +84,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         void setData(Message message) {
             binding.textMessage.setText(message.getContent());
-            binding.textDateTime.setText(message.getCreated().toString());
+            binding.textDateTime.setText(message.getCreated());
         }
     }
 
@@ -94,7 +98,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         void setData(Message message, Bitmap receiverProfileImage) {
             binding.textMessage.setText(message.getContent());
-            binding.textDateTime.setText(message.getCreated().toString());
+            binding.textDateTime.setText(message.getCreated());
             binding.imageProfile.setImageBitmap(receiverProfileImage);
         }
     }

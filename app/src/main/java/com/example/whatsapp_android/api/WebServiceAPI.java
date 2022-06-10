@@ -2,6 +2,8 @@ package com.example.whatsapp_android.api;
 
 import com.example.whatsapp_android.entities.Contact;
 import com.example.whatsapp_android.entities.Invitation;
+import com.example.whatsapp_android.entities.Message;
+import com.example.whatsapp_android.entities.Transfer;
 import com.example.whatsapp_android.entities.User;
 import com.google.gson.JsonObject;
 
@@ -12,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Body;
+import retrofit2.http.Path;
 
 public interface WebServiceAPI {
     @POST("api/Users/signin")
@@ -28,4 +31,13 @@ public interface WebServiceAPI {
 
     @POST("api/Invitations")
     Call<String> sendInvitation(@Body Invitation invitation);
+
+    @GET("api/Contacts/{id}/messages")
+    Call<List<Message>> getAllMessage(@Header("Authorization") String token, @Path("id") String receiverId);
+
+    @POST("api/Contacts/{id}/messages")
+    Call<String> addNewMessage(@Header("Authorization") String token, @Path("id") String receiverId, @Body Message message);
+
+    @POST("api/Transfer")
+    Call<String> sendMessage(@Body Transfer transfer);
 }
