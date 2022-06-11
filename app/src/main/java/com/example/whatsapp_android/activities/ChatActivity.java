@@ -32,11 +32,14 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+        // Load the user details to the screen from the preferenceManager
         loadReceivedDetails();
 
+        // Create adapter for the message array
         MessageAdapter messageAdapter = new MessageAdapter(null);
         binding.chatRecyclerView.setAdapter(messageAdapter);
 
+        // The observer watch for any change and re-render it to the screen
         messagesViewModel = new MessagesViewModel(preferenceManager);
         messagesViewModel.get().observe(this, messages -> {
             loading(true);
@@ -56,19 +59,19 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private void sendMessage() {
+        // Create a transfer request to transfer the message
         Transfer transfer = new Transfer(preferenceManager.getString(Constants.KEY_USERNAME),
                                         preferenceManager.getString(Constants.KEY_CONTACT),
                                         binding.inputMessage.getText().toString());
+
+        // Clear the textBox
         binding.inputMessage.setText(null);
         messagesViewModel.add(transfer);
     }
 
-    private Bitmap getBitmapFromEncodedString(String encodedImage) {
-        byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-    }
-
-
+    /**
+     * Load the contact info to the screen.
+     */
     private void loadReceivedDetails() {
         Contact receiverContact = (Contact) getIntent().getSerializableExtra(Constants.KEY_CONTACT);
         binding.textName.setText(receiverContact.getName());

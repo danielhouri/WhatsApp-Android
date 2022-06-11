@@ -43,7 +43,11 @@ public class SignUpActivity extends AppCompatActivity {
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
+
+        // Set up the API connection
         whatsAppAPI = new WhatsAppAPI();
+
+        // Config the btn listeners
         setListeners();
     }
 
@@ -74,12 +78,13 @@ public class SignUpActivity extends AppCompatActivity {
                 encodedImage,
                 binding.inputPasswordSignUp.getText().toString());
         Call<String> call = whatsAppAPI.signUp(user);
-
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 // Ok
                 if(response.code() == 200) {
+
+                    // Add user info to the preferenceManager
                     preferenceManager.putString(Constants.KEY_TOKEN, response.body());
                     preferenceManager.putString(Constants.KEY_USERNAME, binding.inputUsernameSignUp.getText().toString());
                     preferenceManager.putString(Constants.KEY_NICKNAME, binding.inputNicknameSignUp.getText().toString());
@@ -105,6 +110,11 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This function change the image to a string.
+     * @param bitmap the image
+     * @return the string
+     */
     private String encodeImage(Bitmap bitmap) {
         int previewWidth = 150;
         int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
@@ -115,6 +125,9 @@ public class SignUpActivity extends AppCompatActivity {
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
+    /**
+     * Open the pickup image box and encode the image to Base64.
+     */
     private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -136,6 +149,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
     );
 
+    /**
+     * Validity check for the user credentials.
+     * @return true - valid, false - invalid
+     */
     private Boolean isValidSignUp() {
         if (binding.inputUsernameSignUp.getText().toString().trim().isEmpty()) {
             showToast("Enter username");

@@ -6,8 +6,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
-
-import com.example.whatsapp_android.entities.Contact;
 import com.example.whatsapp_android.entities.Message;
 
 import java.util.List;

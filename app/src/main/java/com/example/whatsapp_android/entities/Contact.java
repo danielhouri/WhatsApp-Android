@@ -1,10 +1,8 @@
 package com.example.whatsapp_android.entities;
 
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-
 import java.io.Serializable;
 
 @Entity(primaryKeys = {"id", "userid"})
@@ -12,7 +10,6 @@ public class Contact implements Serializable {
     @NonNull
     private String id, userid;
     private String name, server, last;
-
     private String lastDate;
 
     public Contact(@NonNull String id, @NonNull String userid, String name, String server, String last, String lastDate) {

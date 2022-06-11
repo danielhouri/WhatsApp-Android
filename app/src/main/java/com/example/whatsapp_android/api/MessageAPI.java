@@ -38,6 +38,11 @@ public class MessageAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
+    /**
+     * Get all messages of the contact clicked on.
+     * @param messages the mutable list
+     * @param receiverId the contact ID
+     */
     public void getAllMessages(MutableLiveData<List<Message>> messages, String receiverId) {
         String token = "Bearer " + preferenceManager.getString(Constants.KEY_TOKEN);
         Call<List<Message>> call = webServiceAPI.getAllMessage(token, receiverId);
@@ -66,6 +71,12 @@ public class MessageAPI {
     }
 
 
+    /**
+     * Add a new message in the API.
+     * @param messages the mutable list
+     * @param receiverId the contact ID
+     * @param message the message
+     */
     public void addNewMessage(MutableLiveData<List<Message>> messages, String receiverId, Message message) {
         String token = "Bearer " + preferenceManager.getString(Constants.KEY_TOKEN);
         Call<String> call = webServiceAPI.addNewMessage(token, receiverId, message);
@@ -92,6 +103,11 @@ public class MessageAPI {
 
     }
 
+    /**
+     * Send a message to the contact's API.
+     * @param messages the message
+     * @param transfer the transfer request
+     */
     public void sendMessage(MutableLiveData<List<Message>> messages, Transfer transfer) {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()

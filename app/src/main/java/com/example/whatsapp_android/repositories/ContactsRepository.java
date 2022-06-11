@@ -3,7 +3,6 @@ package com.example.whatsapp_android.repositories;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
-
 import com.example.whatsapp_android.Dao.ContactDao;
 import com.example.whatsapp_android.R;
 import com.example.whatsapp_android.api.ContactAPI;

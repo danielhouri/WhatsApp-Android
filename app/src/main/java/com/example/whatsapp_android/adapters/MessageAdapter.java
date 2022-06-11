@@ -27,11 +27,21 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.receiverProfileImage = receiverProfileImage;
     }
 
+    /**
+     * Set the array with the updated messages list.
+     * @param messages the new list
+     */
     public void setMessages(List<Message> messages) {
         this.messages.clear();
         this.messages.addAll(messages);
     }
 
+    /**
+     * Check the message side and show it to the screen
+     * @param parent viewgroup
+     * @param viewType the side of the message
+     * @return the messageView with the data
+     */
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -88,6 +98,9 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+    /**
+     * Set the message params
+     */
     static class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
         private final ItemContainerRecivedMessageBinding binding;
 

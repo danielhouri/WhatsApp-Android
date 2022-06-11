@@ -7,8 +7,6 @@ public class Constants {
     public static final String KEY_NICKNAME = "nickname";
     public static final String KEY_SERVER = "server";
     public static final String KEY_IMAGE = "image";
-
     public static final String KEY_CONTACT = "contactID";
     public static final String KEY_CONTACT_SERVER = "contactServer";
-
 }

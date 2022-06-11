@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ContactsViewModel extends ViewModel {
 
-    private ContactsRepository repository;
+    private final ContactsRepository repository;
     private final LiveData<List<Contact>> contacts;
 
     public ContactsViewModel(PreferenceManager preferenceManager) {

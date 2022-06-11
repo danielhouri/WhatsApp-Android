@@ -25,10 +25,21 @@ public class WhatsAppAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
+    /**
+     * This function built the call context to made the signup
+     * @param user the user credentials
+     * @return call context
+     */
     public Call<String> signUp(User user) {
         return webServiceAPI.signUp(user);
     }
 
+
+    /**
+     * This function built the call context to made the signin
+     * @param user the user credentials
+     * @return call context
+     */
     public Call<JsonObject> signIn(User user) {
         return webServiceAPI.signIn(user);
     }

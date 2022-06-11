@@ -41,11 +41,14 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+        // Load the user details to the screen
         loadUserDetails();
 
+        // Create adapter for the contact array
         ContactsAdapter contactsAdapter = new ContactsAdapter(this);
         binding.conversationsRecyclerView.setAdapter(contactsAdapter);
 
+        // The observer watch for any change and re-render it to the screen
         contactsViewModel = new ContactsViewModel(preferenceManager);
         contactsViewModel.get().observe(this, contacts -> {
             loading(true);
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
 
             loading(false);
         });
+
         setListeners();
     }
 
@@ -67,7 +71,11 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         binding.btnNewChat.setOnClickListener(v -> addNewUser());
     }
 
+    /**
+     * In this dialog box the user can add a new contact to the list.
+     */
     void addNewUser() {
+        // Create the dialog box
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -78,12 +86,11 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         final EditText usernameET = dialog.findViewById(R.id.inputUsername);
         final EditText nameET = dialog.findViewById(R.id.inputNickname);
         final EditText serverET = dialog.findViewById(R.id.inputServer);
-
         TextView btn = dialog.findViewById(R.id.btnAdd);
         ImageView back = dialog.findViewById(R.id.imageBack);
 
+        // Config the listeners
         back.setOnClickListener(v -> dialog.hide());
-
         btn.setOnClickListener(v -> {
             String username = usernameET.getText().toString();
             String name = nameET.getText().toString();
@@ -118,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         showToast("Signin out...");
         //Logout firebase
         startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+        preferenceManager.clear();
         finish();
     }
 

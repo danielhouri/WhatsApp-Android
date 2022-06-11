@@ -2,7 +2,6 @@ package com.example.whatsapp_android.localdatabse;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
-
 import com.example.whatsapp_android.Dao.ContactDao;
 import com.example.whatsapp_android.Dao.MessageDao;
 import com.example.whatsapp_android.entities.Contact;

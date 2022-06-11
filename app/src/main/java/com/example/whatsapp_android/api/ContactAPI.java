@@ -34,6 +34,10 @@ public class ContactAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
+    /**
+     * Get form the API the user contacts.
+     * @param contacts the mutable list
+     */
     public void getAllContact(MutableLiveData<List<Contact>> contacts) {
         String token = "Bearer " + preferenceManager.getString(Constants.KEY_TOKEN);
         Call<List<Contact>> call = webServiceAPI.getAllContacts(token);
@@ -59,6 +63,11 @@ public class ContactAPI {
         });
     }
 
+    /**
+     * Add a new contact in the API server
+     * @param contacts the mutable list
+     * @param contact the new contact
+     */
     public void addNewContact(MutableLiveData<List<Contact>> contacts, Contact contact) {
         String token = "Bearer " + preferenceManager.getString(Constants.KEY_TOKEN);
         Call<String> call = webServiceAPI.addNewContact(token, contact);
@@ -78,6 +87,12 @@ public class ContactAPI {
         });
     }
 
+    /**
+     * Send an invitation to a new user.
+     * @param contacts the mutable list of users
+     * @param contact the new user
+     * @param invitation the invitation
+     */
     public void sendInvitation(MutableLiveData<List<Contact>> contacts, Contact contact, Invitation invitation) {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
