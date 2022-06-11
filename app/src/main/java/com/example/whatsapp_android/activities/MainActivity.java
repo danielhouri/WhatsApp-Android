@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
     @Override
     public void onContactClicked(Contact contact) {
         preferenceManager.putString(Constants.KEY_CONTACT, contact.getId());
+        preferenceManager.putString(Constants.KEY_CONTACT_SERVER, contact.getServer());
+
         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
         intent.putExtra(Constants.KEY_CONTACT, contact);
         startActivity(intent);

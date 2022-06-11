@@ -35,7 +35,7 @@ public class MessagesRepository {
     }
 
     public void add(final Transfer transfer) {
-        messageAPI.sendMessage(messageListData, transfer, "http://10.0.2.2:5156/");
+        messageAPI.sendMessage(messageListData, transfer);
     }
 
     class MessageListData extends MutableLiveData<List<Message>> {

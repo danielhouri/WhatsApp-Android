@@ -81,12 +81,11 @@ public class SignUpActivity extends AppCompatActivity {
                 // Ok
                 if(response.code() == 200) {
                     preferenceManager.putString(Constants.KEY_TOKEN, response.body());
-                    loading(false);
-                    preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                    preferenceManager.putString(Constants.KEY_COLLECTION_USERS, "");  //KEY COLLECTION USER
                     preferenceManager.putString(Constants.KEY_USERNAME, binding.inputUsernameSignUp.getText().toString());
                     preferenceManager.putString(Constants.KEY_NICKNAME, binding.inputNicknameSignUp.getText().toString());
                     preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
+
+                    loading(false);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);

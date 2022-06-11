@@ -70,7 +70,7 @@ public class ContactAPI {
                     contact.setUserid(preferenceManager.getString(Constants.KEY_USERNAME));
                     contactDao.insert(contact);
                 }
-                contacts.setValue(contactDao.index("daniel"));
+                contacts.setValue(contactDao.index(preferenceManager.getString(Constants.KEY_USERNAME)));
             }
 
             @Override

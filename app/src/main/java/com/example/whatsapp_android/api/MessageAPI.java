@@ -92,11 +92,11 @@ public class MessageAPI {
 
     }
 
-    public void sendMessage(MutableLiveData<List<Message>> messages, Transfer transfer, String server) {
+    public void sendMessage(MutableLiveData<List<Message>> messages, Transfer transfer) {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(server)
+                .baseUrl(preferenceManager.getString(Constants.KEY_CONTACT_SERVER))
                 .build();
         WebServiceAPI receiverSide = retrofit.create(WebServiceAPI.class);
 
