@@ -25,7 +25,9 @@ import com.example.whatsapp_android.listeners.ContactListener;
 import com.example.whatsapp_android.utilities.Constants;
 import com.example.whatsapp_android.utilities.PreferenceManager;
 import com.example.whatsapp_android.viewmodels.ContactsViewModel;
-
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 
 public class MainActivity extends AppCompatActivity implements ContactListener {
@@ -64,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         });
 
         setListeners();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+        });
     }
 
     private void setListeners() {
