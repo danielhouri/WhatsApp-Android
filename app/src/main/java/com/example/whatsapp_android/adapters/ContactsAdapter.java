@@ -63,6 +63,9 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
         void setData(Contact contact) {
             binding.textName.setText(contact.getName());
             binding.textLast.setText(contact.getLast());
+            if(contact.getLastDate() != null) {
+                binding.textTime.setText(contact.getLastDate().substring(11, 16));
+            }
             //binding.imageProfile.setImageBitmap(getUserImage(contact.getImage()));
             binding.getRoot().setOnClickListener(v -> contactListener.onContactClicked(contact));
         }

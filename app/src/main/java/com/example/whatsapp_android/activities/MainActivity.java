@@ -2,6 +2,7 @@ package com.example.whatsapp_android.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
     private ContactsViewModel contactsViewModel;
-    private int size = 1;
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +58,7 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
             binding.progressBar.setVisibility(View.GONE);
 
             contactsAdapter.setContacts(contacts);
-            contactsAdapter.notifyItemRangeChanged(0,contactsAdapter.getItemCount() + size);
-            size = contactsAdapter.getItemCount();
+            contactsAdapter.notifyDataSetChanged();
 
             loading(false);
         });

@@ -2,22 +2,17 @@ package com.example.whatsapp_android.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
-
 import com.example.whatsapp_android.adapters.MessageAdapter;
 import com.example.whatsapp_android.databinding.ActivityChatBinding;
 import com.example.whatsapp_android.entities.Contact;
-import com.example.whatsapp_android.entities.Message;
 import com.example.whatsapp_android.entities.Transfer;
 import com.example.whatsapp_android.utilities.Constants;
 import com.example.whatsapp_android.utilities.PreferenceManager;
 import com.example.whatsapp_android.viewmodels.MessagesViewModel;
 
-import java.util.Date;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -25,6 +20,7 @@ public class ChatActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private MessagesViewModel messagesViewModel;
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +44,10 @@ public class ChatActivity extends AppCompatActivity {
             binding.progressBar.setVisibility(View.GONE);
 
             messageAdapter.setMessages(messages);
-            messageAdapter.notifyItemRangeChanged(0,messageAdapter.getItemCount());
-            binding.chatRecyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
+            messageAdapter.notifyDataSetChanged();
+            if(messageAdapter.getItemCount() > 0) {
+                binding.chatRecyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
+            }
 
             loading(false);
         });
