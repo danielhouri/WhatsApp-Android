@@ -8,6 +8,7 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageProfile"
+        android:src="@drawable/avatar"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
         android:background="@drawable/background_image"

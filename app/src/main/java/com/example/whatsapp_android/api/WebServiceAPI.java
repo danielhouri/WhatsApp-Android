@@ -23,6 +23,9 @@ public interface WebServiceAPI {
     @POST("api/Users/signup")
     Call<String> signUp(@Body User user);
 
+    @POST("api/Users/firebase")
+    Call<String> sendFirebase(@Body User user);
+
     @GET("api/Contacts")
     Call<List<Contact>> getAllContacts(@Header("Authorization") String token);
 

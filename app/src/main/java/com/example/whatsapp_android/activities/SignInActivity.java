@@ -21,6 +21,7 @@ import com.example.whatsapp_android.entities.User;
 import com.example.whatsapp_android.utilities.Constants;
 import com.example.whatsapp_android.utilities.PreferenceManager;
 import com.example.whatsapp_android.utilities.WhatsApp;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -115,6 +116,12 @@ public class SignInActivity extends AppCompatActivity {
                     preferenceManager.putString(Constants.KEY_USERNAME, user.getUsername());
                     preferenceManager.putString(Constants.KEY_IMAGE, user.getImage());
                     preferenceManager.putString(Constants.KEY_NICKNAME, user.getName());
+
+
+                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SignInActivity.this, instanceIdResult -> {
+                        String newToken = instanceIdResult.getToken();
+                        whatsAppAPI.sendToken(user.getUsername(), newToken);
+                    });
 
                     loading(false);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);

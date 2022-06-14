@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -36,6 +37,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    implementation 'androidx.work:work-runtime-ktx:2.8.0-alpha02'
 
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
@@ -43,6 +45,7 @@ dependencies {
 
     implementation 'androidx.room:room-common:2.4.2'
     implementation 'androidx.room:room-runtime:2.4.2'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
     annotationProcessor 'androidx.room:room-compiler:2.4.2'
 
     testImplementation 'junit:junit:4.13.2'

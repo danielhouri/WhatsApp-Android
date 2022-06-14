@@ -112,7 +112,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         void setData(Message message, Bitmap receiverProfileImage) {
             binding.textMessage.setText(message.getContent());
             binding.textDateTime.setText(message.getCreated());
-            binding.imageProfile.setImageBitmap(receiverProfileImage);
+            //binding.imageProfile.setImageBitmap(receiverProfileImage);
         }
     }
 }

@@ -20,6 +20,7 @@ import com.example.whatsapp_android.databinding.ActivitySignUpBinding;
 import com.example.whatsapp_android.entities.User;
 import com.example.whatsapp_android.utilities.Constants;
 import com.example.whatsapp_android.utilities.PreferenceManager;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -89,6 +90,11 @@ public class SignUpActivity extends AppCompatActivity {
                     preferenceManager.putString(Constants.KEY_USERNAME, binding.inputUsernameSignUp.getText().toString());
                     preferenceManager.putString(Constants.KEY_NICKNAME, binding.inputNicknameSignUp.getText().toString());
                     preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
+
+                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SignUpActivity.this, instanceIdResult -> {
+                        String newToken = instanceIdResult.getToken();
+                        whatsAppAPI.sendToken(response.body(), newToken);
+                    });
 
                     loading(false);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
