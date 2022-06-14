@@ -118,12 +118,9 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         }
     }
 
-    private void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
     private void signOut() {
-        showToast("Signin out...");
+        Toast.makeText(getApplicationContext(), "Signin out...", Toast.LENGTH_SHORT).show();
+
         //Logout firebase
         startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         preferenceManager.clear();

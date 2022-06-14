@@ -1,18 +1,12 @@
 package com.example.whatsapp_android.adapters;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.whatsapp_android.databinding.ItemContainerContactBinding;
 import com.example.whatsapp_android.entities.Contact;
 import com.example.whatsapp_android.listeners.ContactListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,11 +63,5 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
             //binding.imageProfile.setImageBitmap(getUserImage(contact.getImage()));
             binding.getRoot().setOnClickListener(v -> contactListener.onContactClicked(contact));
         }
-    }
-
-
-    private Bitmap getUserImage(String encodedImage) {
-        byte[] bytes = Base64.decode(encodedImage, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 }
