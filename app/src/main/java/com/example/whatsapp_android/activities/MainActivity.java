@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
     private PreferenceManager preferenceManager;
     private ContactsViewModel contactsViewModel;
 
+
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
