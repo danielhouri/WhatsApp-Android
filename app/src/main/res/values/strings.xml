@@ -10,7 +10,7 @@
     <string name="nickname">Nickname</string>
     <string name="add_image">Add Image</string>
     <string name="sign_up">Sign Up</string>
-    <string name="BaseUrl">https://2dbf-132-70-1-38.eu.ngrok.io/</string>
+    <string name="BaseUrl">http://10.0.2.2:5156/</string>
     <string name="select_user">select user</string>
     <string name="chat_app">Chat App</string>
     <string name="type_a_message">Type a message</string>

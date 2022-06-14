@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.example.whatsapp_android.R;
 import com.example.whatsapp_android.adapters.ContactsAdapter;
 import com.example.whatsapp_android.databinding.ActivityMainBinding;

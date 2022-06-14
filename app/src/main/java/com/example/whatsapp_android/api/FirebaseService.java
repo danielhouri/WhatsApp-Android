@@ -1,8 +1,6 @@
 package com.example.whatsapp_android.api;
 
-import com.example.whatsapp_android.activities.ChatActivity;
 import com.example.whatsapp_android.activities.MainActivity;
-import com.example.whatsapp_android.utilities.Constants;
 import com.example.whatsapp_android.utilities.PreferenceManager;
 import com.example.whatsapp_android.utilities.WhatsApp;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -31,28 +29,34 @@ public class FirebaseService extends FirebaseMessagingService {
         if(remoteMessage.getNotification() != null){
             Intent resultIntent = new Intent(this, MainActivity.class);
             resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent, 0);
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             createNotificationChannel();
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"1")
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"2")
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(remoteMessage.getNotification().getTitle())
                     .setContentText(remoteMessage.getNotification().getBody())
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setAutoCancel(true)
                     .setContentIntent(pendingIntent);
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-            notificationManager.notify(1,builder.build());
+            notificationManager.notify(2,builder.build());
         }
     }
+
     private void createNotificationChannel(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("1","WhatsApp",importance);
+            NotificationChannel channel = new NotificationChannel("2","WhatsApp",importance);
             channel.setDescription("Whatsapp-Android");
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    @Override
+    public void onNewToken(@NonNull String s) {
+        super.onNewToken(s);
     }
 }
