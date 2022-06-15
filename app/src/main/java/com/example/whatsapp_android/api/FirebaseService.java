@@ -29,7 +29,7 @@ public class FirebaseService extends FirebaseMessagingService {
         if(remoteMessage.getNotification() != null){
             Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
             resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_ONE_SHOT);
 
             createNotificationChannel();
 
