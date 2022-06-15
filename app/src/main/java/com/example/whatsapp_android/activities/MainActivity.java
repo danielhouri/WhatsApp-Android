@@ -64,8 +64,14 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         });
 
         setListeners();
-
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        preferenceManager.putBoolean(Constants.KEY_IS_LOGGED, Boolean.TRUE);
+    }
+
 
     private void setListeners() {
         binding.imageSignOut.setOnClickListener(v -> signOut());
@@ -107,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         dialog.show();
     }
 
-
     private void loadUserDetails()  {
         binding.textName.setText(preferenceManager.getString(Constants.KEY_NICKNAME));
         String image = preferenceManager.getString(Constants.KEY_IMAGE);
@@ -120,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
 
     private void signOut() {
         Toast.makeText(getApplicationContext(), "Signin out...", Toast.LENGTH_SHORT).show();
+        preferenceManager.putBoolean(Constants.KEY_IS_LOGGED, false);
 
         //Logout firebase
         startActivity(new Intent(getApplicationContext(), SignInActivity.class));

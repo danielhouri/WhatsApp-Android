@@ -24,7 +24,7 @@ public class ContactsRepository {
 
     public ContactsRepository(PreferenceManager preferenceManager) {
         this.preferenceManager = preferenceManager;
-        contactDao = Room.databaseBuilder(WhatsApp.context, LocalDatabase.class, "AppDB60")
+        contactDao = Room.databaseBuilder(WhatsApp.context, LocalDatabase.class, "AppDB")
                     .allowMainThreadQueries().build().contactDao();
         contactListData = new ContactListData();
         this.contactAPI = new ContactAPI(contactDao, preferenceManager);

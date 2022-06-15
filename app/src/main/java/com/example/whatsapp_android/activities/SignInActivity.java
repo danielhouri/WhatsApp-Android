@@ -45,6 +45,13 @@ public class SignInActivity extends AppCompatActivity {
         // preferenceManager keep all user information needed
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+        if (preferenceManager.getBoolean(Constants.KEY_IS_LOGGED) &&
+                preferenceManager.getString(Constants.KEY_USERNAME) != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         // Set up the API connection
         whatsAppAPI = new WhatsAppAPI();
         preferenceManager.putString(Constants.KEY_SERVER, WhatsApp.context.getString(R.string.BaseUrl));
@@ -116,7 +123,7 @@ public class SignInActivity extends AppCompatActivity {
                     preferenceManager.putString(Constants.KEY_USERNAME, user.getUsername());
                     preferenceManager.putString(Constants.KEY_IMAGE, user.getImage());
                     preferenceManager.putString(Constants.KEY_NICKNAME, user.getName());
-
+                    preferenceManager.putBoolean(Constants.KEY_IS_LOGGED, true);
 
                     FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SignInActivity.this, instanceIdResult -> {
                         String newToken = instanceIdResult.getToken();

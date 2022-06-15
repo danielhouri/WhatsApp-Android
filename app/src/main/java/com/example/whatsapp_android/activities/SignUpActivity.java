@@ -90,6 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
                     preferenceManager.putString(Constants.KEY_USERNAME, binding.inputUsernameSignUp.getText().toString());
                     preferenceManager.putString(Constants.KEY_NICKNAME, binding.inputNicknameSignUp.getText().toString());
                     preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
+                    preferenceManager.putBoolean(Constants.KEY_IS_LOGGED, true);
 
                     FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SignUpActivity.this, instanceIdResult -> {
                         String newToken = instanceIdResult.getToken();

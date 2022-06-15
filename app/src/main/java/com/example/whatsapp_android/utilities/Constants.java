@@ -9,4 +9,5 @@ public class Constants {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_CONTACT = "contactID";
     public static final String KEY_CONTACT_SERVER = "contactServer";
+    public static final String KEY_IS_LOGGED = "isLogged";
 }

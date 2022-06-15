@@ -24,7 +24,7 @@ public class MessagesRepository {
 
     public MessagesRepository(PreferenceManager preferenceManager) {
         this.preferenceManager = preferenceManager;
-        messageDao = Room.databaseBuilder(WhatsApp.context, LocalDatabase.class, "AppDB60")
+        messageDao = Room.databaseBuilder(WhatsApp.context, LocalDatabase.class, "AppDB")
                 .allowMainThreadQueries().build().messageDao();
         messageListData = new MessageListData();
         this.messageAPI = new MessageAPI(messageDao, preferenceManager);

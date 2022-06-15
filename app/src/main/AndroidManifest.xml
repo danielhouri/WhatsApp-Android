@@ -40,17 +40,21 @@
         <activity android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name=".api.FirebaseService" />
-                <category android:name="android.intent.category.APP_MESSAGING" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service
             android:name=".api.FirebaseService"
-            android:exported="false">
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_channel_id"
+                android:value="@string/app_name" />
         </service>
     </application>
 </manifest>
