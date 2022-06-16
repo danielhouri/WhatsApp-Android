@@ -45,13 +45,6 @@ public class SignInActivity extends AppCompatActivity {
         // preferenceManager keep all user information needed
         preferenceManager = new PreferenceManager(getApplicationContext());
 
-        if (preferenceManager.getBoolean(Constants.KEY_IS_LOGGED) &&
-                preferenceManager.getString(Constants.KEY_USERNAME) != null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
         // Set up the API connection
         whatsAppAPI = new WhatsAppAPI();
         preferenceManager.putString(Constants.KEY_SERVER, WhatsApp.context.getString(R.string.BaseUrl));

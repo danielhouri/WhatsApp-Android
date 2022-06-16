@@ -6,6 +6,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import androidx.annotation.NonNull;
@@ -16,7 +17,6 @@ import com.example.whatsapp_android.R;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseService extends FirebaseMessagingService {
-    private static int count = 0;
     public FirebaseService() {
 
     }
@@ -24,9 +24,9 @@ public class FirebaseService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         if(remoteMessage.getNotification() != null){
-            Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
-            resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
+            Intent resultIntent = new Intent();
+            resultIntent.setComponent(new ComponentName(this, MainActivity.class));
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             createNotificationChannel();
 
@@ -35,12 +35,11 @@ public class FirebaseService extends FirebaseMessagingService {
                     .setContentTitle(remoteMessage.getNotification().getTitle())
                     .setContentText(remoteMessage.getNotification().getBody())
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setAutoCancel(true)
-                    .setContentIntent(pendingIntent);
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-            notificationManager.notify(count,builder.build());
-            count++;
+            notificationManager.notify(1,builder.build());
         }
     }
 
