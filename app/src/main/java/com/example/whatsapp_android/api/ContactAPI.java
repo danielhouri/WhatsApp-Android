@@ -59,7 +59,9 @@ public class ContactAPI {
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Contact>> call, @NonNull Throwable t) {            }
+            public void onFailure(@NonNull Call<List<Contact>> call, @NonNull Throwable t) {
+                preferenceManager.putBoolean(Constants.KEY_IS_LOGGED, false);
+            }
         });
     }
 

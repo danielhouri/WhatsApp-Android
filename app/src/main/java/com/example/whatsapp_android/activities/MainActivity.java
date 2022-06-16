@@ -66,13 +66,6 @@ public class MainActivity extends AppCompatActivity implements ContactListener {
         setListeners();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        preferenceManager.putBoolean(Constants.KEY_IS_LOGGED, Boolean.TRUE);
-    }
-
-
     private void setListeners() {
         binding.imageSignOut.setOnClickListener(v -> signOut());
         binding.btnNewChat.setOnClickListener(v -> addNewUser());

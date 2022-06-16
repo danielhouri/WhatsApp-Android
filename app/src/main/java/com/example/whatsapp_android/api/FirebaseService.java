@@ -3,14 +3,12 @@ package com.example.whatsapp_android.api;
 import com.example.whatsapp_android.activities.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 
-import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -23,7 +21,6 @@ public class FirebaseService extends FirebaseMessagingService {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         if(remoteMessage.getNotification() != null){
