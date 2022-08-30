@@ -12,7 +12,3 @@ By default the app is configured to run on the address: http://10.0.2.2:5056/.
 - Firebase
 - Retrofit
 - Room
-
-## Submitting
-- Daniel Houri: 314712563
-- Dor Huri: 209409218
